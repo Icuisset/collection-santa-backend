@@ -7,6 +7,9 @@ const memberSchema = new mongoose.Schema({
     available: {
       type: Boolean,
       default: true,
+    },
+    team: {
+      type: String,
     }
 });
 
