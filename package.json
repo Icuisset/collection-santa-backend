@@ -1,0 +1,27 @@
+{
+  "name": "collection_santa_backend",
+  "version": "1.0.0",
+  "description": "Backend API project for MEET YOUR SANTA mini application project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Icuisset/Collection_Santa_Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Icuisset/Collection_Santa_Backend/issues"
+  },
+  "homepage": "https://github.com/Icuisset/Collection_Santa_Backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
