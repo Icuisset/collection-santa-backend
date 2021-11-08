@@ -43,6 +43,7 @@ const {
     requestLog,
     errorLog
 } = require("./middleware/log/logger");
+
 const Error404 = require("./middleware/errors/Error400");
 
 const uri= DB_CONNECT;
@@ -56,6 +57,14 @@ mongoose
     console.log("MongoDB Connected");
   })
   .catch((err) => console.log(err));
+
+const membersRouter = require('./routes/members');
+
+app.use("/members", membersRouter);
+
+app.get("*", () => {
+    throw new Error404("requested resources not found");
+  });
 
 app.listen(PORT, () => {
     // if everything works fine, the console will show which port the application is listening to

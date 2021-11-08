@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const Member = require("../models/member");
 const Error404 = require("../middleware/errors/Error404");
 const Error403 = require("../middleware/errors/Error403");
@@ -5,17 +6,17 @@ const Error500 = require("../middleware/errors/Error500");
 
 
 
-/** GET /:team/members/:name — returns a member by his name in a team */
+/** GET /members/:team/:name — returns a member by his name in a team */
 module.exports.getMemberbyName = (req, res) => {
   const {
-    teamname
+    team
   } = req.params.team;
   const {
-    membername
+    name
   } = req.params.name;
   Member.findOne({
-      team: teamname,
-      name: membername
+      team,
+      name,
     })
     .then((member) => {
       if (!member) {
@@ -29,13 +30,13 @@ module.exports.getMemberbyName = (req, res) => {
     })
 };
 
-/**GET /:team/members - returns all members of a team */
+/**GET /members/:team - returns all members of a team */
 module.exports.getAllMembers = (req, res) => {
   const {
     teamname
   } = req.params.team;
   Member.find({
-      team: teamname,
+      team : teamname,
     })
     .then((members) => {
       if (!members) {
@@ -49,17 +50,15 @@ module.exports.getAllMembers = (req, res) => {
     })
 };
 
-/**POST /:team/members - create a new member */
+/**POST /members - create a new member */
 module.exports.createMember = (req, res) => {
   const {
-    teamname
-  } = req.params.team;
-  const {
-    membername
+    team,
+    name
   } = req.body;
   Member.create({
-      team: teamname,
-      name: membername,
+      team,
+      name,
       available: true
     })
     .then((member) => {
@@ -74,17 +73,15 @@ module.exports.createMember = (req, res) => {
     })
 };
 
-/** DELETE /:team/members/:name — delete a member by his name in a team */
+/** DELETE /members/:team/:name — delete a member by his name in a team */
 module.exports.deleteMemberbyName = (req, res) => {
   const {
-    teamname
-  } = req.params.team;
-  const {
-    membername
-  } = req.params.name;
+    team,
+    name
+  } = req.params;
   Member.findOneAndDelete({
-      team: teamname,
-      name: membername
+      team,
+      name
     })
     .then((member) => {
       if (!member) {
