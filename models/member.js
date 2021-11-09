@@ -9,9 +9,11 @@ const memberSchema = new mongoose.Schema({
       type: Boolean,
       default: true,
     },
-    team: {
-      type: String,
-    }
+    teamid: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'team',
+      required: true,
+    },
 });
 
 module.exports = mongoose.model('Member', memberSchema);

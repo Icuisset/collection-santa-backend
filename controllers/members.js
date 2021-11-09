@@ -6,17 +6,13 @@ const Error500 = require("../middleware/errors/Error500");
 
 
 
-/** GET /members/:team/:name — returns a member by his name in a team */
-module.exports.getMemberbyName = (req, res) => {
+/** GET /members/:memberID — returns a member by his ID */
+module.exports.getMemberByID = (req, res) => {
   const {
-    team
-  } = req.params.team;
-  const {
-    name
-  } = req.params.name;
+    memberID
+  } = req.params;
   Member.findOne({
-      team,
-      name,
+      _id : memberID
     })
     .then((member) => {
       if (!member) {
@@ -30,13 +26,13 @@ module.exports.getMemberbyName = (req, res) => {
     })
 };
 
-/**GET /members/:team - returns all members of a team */
-module.exports.getAllMembers = (req, res) => {
+/**GET /members/:teamID - returns all members of a team */
+module.exports.getAllTeamMembers = (req, res) => {
   const {
-    teamname
-  } = req.params.team;
+    teamID
+  } = req.params;
   Member.find({
-      team : teamname,
+      teamid : teamID,
     })
     .then((members) => {
       if (!members) {
@@ -53,11 +49,11 @@ module.exports.getAllMembers = (req, res) => {
 /**POST /members - create a new member */
 module.exports.createMember = (req, res) => {
   const {
-    team,
+    teamid,
     name
   } = req.body;
   Member.create({
-      team,
+      teamid,
       name,
       available: true
     })
@@ -73,15 +69,13 @@ module.exports.createMember = (req, res) => {
     })
 };
 
-/** DELETE /members/:team/:name — delete a member by his name in a team */
-module.exports.deleteMemberbyName = (req, res) => {
+/** DELETE /members/:memberID — delete a member by ID */
+module.exports.deleteMemberByID = (req, res) => {
   const {
-    team,
-    name
+    memberID
   } = req.params;
   Member.findOneAndDelete({
-      team,
-      name
+   _id : memberID
     })
     .then((member) => {
       if (!member) {

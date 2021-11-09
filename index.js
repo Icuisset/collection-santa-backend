@@ -59,8 +59,10 @@ mongoose
   .catch((err) => console.log(err));
 
 const membersRouter = require('./routes/members');
+const teamsRouter = require('./routes/teams');
 
 app.use("/members", membersRouter);
+app.use("/teams", teamsRouter);
 
 app.get("*", () => {
     throw new Error404("requested resources not found");

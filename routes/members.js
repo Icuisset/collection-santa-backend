@@ -8,39 +8,37 @@ const {
 const router = express.Router();
 
 const {
-    getMemberbyName,
-    getAllMembers,
+    getMemberByID,
+    getAllTeamMembers,
     createMember,
-    deleteMemberbyName
+    deleteMemberByID
 } = require('../controllers/members');
 
-router.get('/:team', celebrate({
+router.get('/:memberID', celebrate({
     params: Joi.object().keys({
-        team: Joi.string().required(),
+        memberID: Joi.string().required(),
     }),
-}), getAllMembers);
+}), getMemberByID);
 
-router.get('/:team/:name',
+router.get('/:teamID',
     celebrate({
         params: Joi.object().keys({
-            team: Joi.string().required(),
-            name: Joi.string().required()
+            teamID: Joi.string().required(),
         }),
-    }), getMemberbyName);
+    }), getAllTeamMembers);
 
 router.post('/', celebrate({
     body: Joi.object().keys({
         name: Joi.string().required(),
-        team: Joi.string()
+        teamid: Joi.string()
     }),
 }), createMember);
 
-router.delete('/:team/:name',
+router.delete('/:memberID',
     celebrate({
         params: Joi.object().keys({
-            team: Joi.string().required(),
-            name: Joi.string().required()
+            memberID: Joi.string().required(),
         }),
-    }), deleteMemberbyName);
+    }), deleteMemberByID);
 
 module.exports = router;
