@@ -26,13 +26,13 @@ module.exports.getMemberByID = (req, res) => {
     })
 };
 
-/**GET /members/:teamID - returns all members of a team */
+/**GET /members - returns all members of a team */
 module.exports.getAllTeamMembers = (req, res) => {
   const {
-    teamID
-  } = req.params;
+    teamid
+  } = req.body;
   Member.find({
-      teamid : teamID,
+      teamid,
     })
     .then((members) => {
       if (!members) {

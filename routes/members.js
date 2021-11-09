@@ -20,10 +20,10 @@ router.get('/:memberID', celebrate({
     }),
 }), getMemberByID);
 
-router.get('/:teamID',
+router.get('/',
     celebrate({
-        params: Joi.object().keys({
-            teamID: Joi.string().required(),
+        body: Joi.object().keys({
+            teamid: Joi.string().required(),
         }),
     }), getAllTeamMembers);
 
