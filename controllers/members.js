@@ -12,7 +12,7 @@ module.exports.getMemberByID = (req, res) => {
     memberID
   } = req.params;
   Member.findOne({
-      _id : memberID
+      _id: memberID
     })
     .then((member) => {
       if (!member) {
@@ -32,32 +32,31 @@ module.exports.getAllTeamMembers = (req, res) => {
     teamid
   } = req.body;
   if (teamid) {
-  Member.find({
-      teamid,
-    })
-    .then((members) => {
-      if (!members) {
-        throw new Error404('No Members found in this team');
-      }
-      res.status(200).send(members);
-    })
-    .catch((err) => {
-      console.log(err);
-      throw new Error500('Members not found');
-    })
-  }
-  else {
+    Member.find({
+        teamid,
+      })
+      .then((members) => {
+        if (!members) {
+          throw new Error404('No Members found in this team');
+        }
+        res.status(200).send(members);
+      })
+      .catch((err) => {
+        console.log(err);
+        throw new Error500('Members not found');
+      })
+  } else {
     Member.find({})
-    .then((members) => {
-      if (!members) {
-        throw new Error404('No Members found in this team');
-      }
-      res.status(200).send(members);
-    })
-    .catch((err) => {
-      console.log(err);
-      throw new Error500('Members not found');
-    })
+      .then((members) => {
+        if (!members) {
+          throw new Error404('No Members found in this team');
+        }
+        res.status(200).send(members);
+      })
+      .catch((err) => {
+        console.log(err);
+        throw new Error500('Members not found');
+      })
   }
 };
 
@@ -90,11 +89,11 @@ module.exports.deleteMemberByID = (req, res) => {
     memberID
   } = req.params;
   Member.findOneAndDelete({
-   _id : memberID
+      _id: memberID
     })
     .then((member) => {
       if (!member) {
-        throw new Error404('Member name is not valid');
+        throw new Error404('Member ID is not valid');
       }
       res.status(200).send({
         message: "Member has been deleted",
@@ -104,5 +103,57 @@ module.exports.deleteMemberByID = (req, res) => {
     .catch((err) => {
       console.log(err);
       throw new Error500('Member not found');
+    })
+};
+
+/**GET /members/available - returns all available members of a team */
+module.exports.getAllAvailableMembers = (req, res) => {
+  const {
+    teamid
+  } = req.body;
+  if (teamid) {
+    Member.find({
+        teamid,
+        available: true
+      })
+      .then((members) => {
+        if (!members) {
+          throw new Error404('No Available Members found in this team');
+        }
+        res.status(200).send(members);
+      })
+      .catch((err) => {
+        console.log(err);
+        throw new Error500('Available Members not found');
+      })
+  }
+};
+
+/**PATCH /members/:memberID - Update member's santee and availability */
+module.exports.updateMemberByID = (req, res) => {
+  const {
+    memberID
+  } = req.params;
+  const {
+    name
+  } = req.body;
+  const update = {
+    santee: name,
+    available: false
+  };
+  Member.findOneAndUpdate({
+      _id: memberID
+    }, update, {
+      new: true
+    })
+    .then((member) => {
+      if (!member) {
+        throw new Error404('Member ID is not valid');
+      }
+      res.status(200).send(member);
+    })
+    .catch((err) => {
+      console.log(err);
+      throw new Error500('Member ID not updated');
     })
 };

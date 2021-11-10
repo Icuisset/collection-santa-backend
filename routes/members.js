@@ -11,7 +11,9 @@ const {
     getMemberByID,
     getAllTeamMembers,
     createMember,
-    deleteMemberByID
+    deleteMemberByID,
+    getAllAvailableMembers,
+    updateMemberByID
 } = require('../controllers/members');
 
 router.get('/:memberID', celebrate({
@@ -27,6 +29,13 @@ router.get('/',
         }),
     }), getAllTeamMembers);
 
+router.get('/available',
+    celebrate({
+        body: Joi.object().keys({
+            teamid: Joi.string().required(),
+        }),
+    }), getAllAvailableMembers);
+
 router.post('/', celebrate({
     body: Joi.object().keys({
         name: Joi.string().required(),
@@ -40,5 +49,15 @@ router.delete('/:memberID',
             memberID: Joi.string().required(),
         }),
     }), deleteMemberByID);
+
+router.patch('/:memberID',
+    celebrate({
+        params: Joi.object().keys({
+            memberID: Joi.string().required(),
+        }),
+        body: Joi.object().keys({
+            name: Joi.string().required(),
+        }),
+    }), updateMemberByID);
 
 module.exports = router;

@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 const express = require('express');
+var favicon = require('serve-favicon');
+var path = require('path');
 
 const mongoose = require("mongoose");
 const helmet = require("helmet");
@@ -19,6 +21,7 @@ const {
 } = process.env;
 
 const app = express();
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 const corsOptions = {
     origin: "*",

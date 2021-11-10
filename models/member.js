@@ -14,6 +14,10 @@ const memberSchema = new mongoose.Schema({
       ref: 'team',
       required: true,
     },
+    santee: {
+      type: String,
+      default: null
+    }
 });
 
 module.exports = mongoose.model('Member', memberSchema);
