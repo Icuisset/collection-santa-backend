@@ -31,6 +31,7 @@ module.exports.getAllTeamMembers = (req, res) => {
   const {
     teamid
   } = req.body;
+  if (teamid) {
   Member.find({
       teamid,
     })
@@ -44,6 +45,20 @@ module.exports.getAllTeamMembers = (req, res) => {
       console.log(err);
       throw new Error500('Members not found');
     })
+  }
+  else {
+    Member.find({})
+    .then((members) => {
+      if (!members) {
+        throw new Error404('No Members found in this team');
+      }
+      res.status(200).send(members);
+    })
+    .catch((err) => {
+      console.log(err);
+      throw new Error500('Members not found');
+    })
+  }
 };
 
 /**POST /members - create a new member */
