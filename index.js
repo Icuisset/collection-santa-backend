@@ -17,7 +17,7 @@ require("dotenv").config();
 const {
     NODE_ENV,
     DB_CONNECT,
-    PORT = 3000
+    PORT = 5000
 } = process.env;
 
 const app = express();
