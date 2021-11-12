@@ -1,63 +1,82 @@
 /* eslint-disable no-unused-vars */
-const express = require('express');
-const {
-    celebrate,
-    Joi
-} = require('celebrate');
+const express = require("express");
+const { celebrate, Joi } = require("celebrate");
 
 const router = express.Router();
 
 const {
-    getMemberByID,
-    getAllTeamMembers,
-    createMember,
-    deleteMemberByID,
-    getAllAvailableMembers,
-    updateMemberByID
-} = require('../controllers/members');
+  getMemberByID,
+  getAllTeamMembers,
+  createMember,
+  deleteMemberByID,
+  getAllAvailableMembers,
+  updateMemberByID,
+  updateMemberGiftee,
+  updateMemberAvailability,
+} = require("../controllers/members");
 
-router.get('/:memberID', celebrate({
+router.get(
+  "/:memberID",
+  celebrate({
     params: Joi.object().keys({
-        memberID: Joi.string().required(),
+      memberID: Joi.string().required(),
     }),
-}), getMemberByID);
+  }),
+  getMemberByID
+);
 
-router.get('/',
-    celebrate({
-        body: Joi.object().keys({
-            teamid: Joi.string().required(),
-        }),
-    }), getAllTeamMembers);
+router.get("/", getAllTeamMembers);
 
-router.get('/available',
-    celebrate({
-        body: Joi.object().keys({
-            teamid: Joi.string().required(),
-        }),
-    }), getAllAvailableMembers);
-
-router.post('/', celebrate({
+router.get(
+  "/available",
+  celebrate({
     body: Joi.object().keys({
-        name: Joi.string().required(),
-        teamid: Joi.string()
+      teamid: Joi.string().required(),
     }),
-}), createMember);
+  }),
+  getAllAvailableMembers
+);
 
-router.delete('/:memberID',
-    celebrate({
-        params: Joi.object().keys({
-            memberID: Joi.string().required(),
-        }),
-    }), deleteMemberByID);
+router.post(
+  "/",
+  celebrate({
+    body: Joi.object().keys({
+      name: Joi.string().required(),
+      teamid: Joi.string(),
+    }),
+  }),
+  createMember
+);
 
-router.patch('/:memberID',
-    celebrate({
-        params: Joi.object().keys({
-            memberID: Joi.string().required(),
-        }),
-        body: Joi.object().keys({
-            name: Joi.string().required(),
-        }),
-    }), updateMemberByID);
+router.delete(
+  "/:memberID",
+  celebrate({
+    params: Joi.object().keys({
+      memberID: Joi.string().required(),
+    }),
+  }),
+  deleteMemberByID
+);
+
+router.patch(
+  "/giftee",
+  celebrate({
+    body: Joi.object().keys({
+      name: Joi.string().required(),
+      _id: Joi.string().required(),
+    }),
+  }),
+  updateMemberGiftee
+);
+
+router.patch(
+  "/availability",
+  celebrate({
+    body: Joi.object().keys({
+      _id: Joi.string().required(),
+    }),
+  }),
+  updateMemberAvailability
+);
 
 module.exports = router;
