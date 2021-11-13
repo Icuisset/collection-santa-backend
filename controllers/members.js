@@ -22,8 +22,8 @@ module.exports.getMemberByID = (req, res) => {
     });
 };
 
-/**GET /members - returns all members of a team */
-module.exports.getAllTeamMembers = (req, res) => {
+/**GET /members - returns all members */
+module.exports.getAllMembers = (req, res) => {
   Member.find({})
     .then((members) => {
       if (!members) {
@@ -102,7 +102,7 @@ module.exports.getAllAvailableMembers = (req, res) => {
 module.exports.updateMemberGiftee = (req, res) => {
   const { name, _id } = req.body;
   const update = {
-    santee: name,
+    giftee: name,
   };
   Member.findOneAndUpdate(
     {

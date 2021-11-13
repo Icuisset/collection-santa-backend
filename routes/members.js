@@ -6,7 +6,7 @@ const router = express.Router();
 
 const {
   getMemberByID,
-  getAllTeamMembers,
+  getAllMembers,
   createMember,
   deleteMemberByID,
   getAllAvailableMembers,
@@ -25,7 +25,7 @@ router.get(
   getMemberByID
 );
 
-router.get("/", getAllTeamMembers);
+router.get("/", getAllMembers);
 
 router.get(
   "/available",
