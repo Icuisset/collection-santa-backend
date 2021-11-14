@@ -13,6 +13,8 @@ const {
   updateMemberByID,
   updateMemberGiftee,
   updateMemberAvailability,
+  updateMemberMessage,
+  updateMemberAvatar,
 } = require("../controllers/members");
 
 router.get(
@@ -77,6 +79,28 @@ router.patch(
     }),
   }),
   updateMemberAvailability
+);
+
+router.patch(
+  "/message",
+  celebrate({
+    body: Joi.object().keys({
+      _id: Joi.string().required(),
+      message: Joi.string(),
+    }),
+  }),
+  updateMemberMessage
+);
+
+router.patch(
+  "/avatar",
+  celebrate({
+    body: Joi.object().keys({
+      _id: Joi.string().required(),
+      avatar: Joi.string().uri({ scheme: ["http", "https"] }),
+    }),
+  }),
+  updateMemberAvatar
 );
 
 module.exports = router;

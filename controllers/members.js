@@ -125,10 +125,65 @@ module.exports.updateMemberGiftee = (req, res) => {
     });
 };
 
+/**PATCH /members/availability - Update member's giftee */
 module.exports.updateMemberAvailability = (req, res) => {
   const { _id } = req.body;
   const update = {
     available: false,
+  };
+  Member.findOneAndUpdate(
+    {
+      _id: _id,
+    },
+    update,
+    {
+      new: true,
+    }
+  )
+    .then((member) => {
+      if (!member) {
+        throw new Error404("Member ID is not valid");
+      }
+      res.status(200).send(member);
+    })
+    .catch((err) => {
+      console.log(err);
+      throw new Error500("Member ID not updated");
+    });
+};
+
+/**PATCH /members/avatar - Update member's avatar */
+module.exports.updateMemberAvatar = (req, res) => {
+  const { _id, avatar } = req.body;
+  const update = {
+    avatar: avatar,
+  };
+  Member.findOneAndUpdate(
+    {
+      _id: _id,
+    },
+    update,
+    {
+      new: true,
+    }
+  )
+    .then((member) => {
+      if (!member) {
+        throw new Error404("Member ID is not valid");
+      }
+      res.status(200).send(member);
+    })
+    .catch((err) => {
+      console.log(err);
+      throw new Error500("Member ID not updated");
+    });
+};
+
+/**PATCH /members/message - Update member's message */
+module.exports.updateMemberMessage = (req, res) => {
+  const { _id, message } = req.body;
+  const update = {
+    message: message,
   };
   Member.findOneAndUpdate(
     {

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const memberSchema = new mongoose.Schema({
   name: {
@@ -17,6 +18,18 @@ const memberSchema = new mongoose.Schema({
   giftee: {
     type: String,
     default: null,
+  },
+  message: {
+    type: String,
+    default: null,
+  },
+  avatar: {
+    type: String,
+    default: null,
+    validate: {
+      validator: (v) => validator.isURL(v, { protocols: ["http", "https"] }),
+      message: "Please enter a valid URL address",
+    },
   },
 });
 
