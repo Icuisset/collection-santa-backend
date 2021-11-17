@@ -68,7 +68,7 @@ module.exports.createUser = (req, res, next) => {
     .catch(next);
 };
 
-/** POST /signin - manages SIGNIN */
+/** POST /signin - manage SIGNIN */
 module.exports.signin = (req, res, next) => {
   const { email, password } = req.body;
 

@@ -25,6 +25,7 @@ module.exports.getMemberByID = (req, res) => {
 /**GET /members - returns all members */
 module.exports.getAllMembers = (req, res) => {
   Member.find({})
+    .sort({ name: 1 })
     .then((members) => {
       if (!members) {
         throw new Error404("No Members found in this team");
